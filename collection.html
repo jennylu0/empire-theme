@@ -1,0 +1,52 @@
+<h2 id="title" class="collection-title">
+  {% if page.name == 'All Products' %}
+    Shop All
+  {% else %}
+    {{ page.name | strip_html }}
+  {% endif %}
+</h2>
+
+{% if collection != blank %}
+  <p id="collection_description">{{ collection.description }}</p>
+{% endif %}
+
+{% if !search.performed %}
+  <p id="search_text">Found {{ search.results_count | pluralize: 'result', 'results' }} for "{{ search.term | escape }}"</p>
+{% endif %}
+
+{% if products.current != blank %}
+  <ul class="products row">
+    {% for product in products.current %}
+    <li class="product col3" id="products_{{product.id}}">
+      <div class="flags">
+        {% if product.on_sale %}<div class="on_sale flag status">On Sale</div>{% endif %}
+        {% if product.preorder %}<div class="preorder flag status">Preorder</div>{% endif %}
+        {% if product.coming_soon %}<div class="coming_soon flag status">Coming Soon</div>{% endif %}
+        {% if product.sold_out %}<div class="sold_out flag">Sold Out</div>{% endif %}
+      </div>
+      <a href="{{product.url}}">
+        <img src="{{ product.photo.url_400sq }}" alt="{{ product.photo.alt | escape }}" class="product-photo" />
+        <p class="product_name">
+          {{ product.name | strip_html }}
+        </p>
+        <span class="product_price">
+          {{ product.price | money_with_sign }}
+        </span>
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+  <div class="pagination">
+    {{ pagination.default_links }}
+  </div>
+{% else %}
+  <div class="no-products">
+    <p>
+      {% if search.performed %}
+        No products found.
+      {% else %}
+        Nothing here yet.
+      {% endif %}
+    </p>
+  </div>
+{% endif %}

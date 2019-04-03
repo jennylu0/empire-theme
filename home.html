@@ -1,0 +1,190 @@
+{% if theme.featured_collection != blank %}
+  {% if theme.featured_collection.products != blank %}
+  
+  <div class="container">
+  <div class="row">
+    <div class="col-12 text-center">
+      <img src="https://placehold.it/250x100" class="logo--title">
+
+      <h1>{{collection.name}}</h1>
+
+    </div>
+  </div>
+</div>
+
+    <ul class="products row">
+      {% for product in theme.featured_collection.products %}
+      <li class="product col3" id="products_{{product.id}}">
+        <div class="flags">
+          {% if product.on_sale %}<div class="on_sale flag status">On Sale</div>{% endif %}
+          {% if product.preorder %}<div class="preorder flag status">Preorder</div>{% endif %}
+          {% if product.coming_soon %}<div class="coming_soon flag status">Coming Soon</div>{% endif %}
+          {% if product.sold_out %}<div class="sold_out flag">Sold Out</div>{% endif %}
+        </div>
+        <a href="{{product.url}}">
+          <img src="{{ product.photo.url_400sq }}" alt="{{ product.photo.alt | escape }}" class="product-photo" />
+          <p class="product_name">
+            {{ product.name }}
+          </p>
+          <span class="product_price">
+            {{ product.price | money_with_sign }}
+          </span>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+    {% if pagination.active %}
+      <div class="pagination">
+        {{ pagination.default_links }}
+      </div>
+    {% endif %}
+  {% else %}
+    <div class="no-products">
+      <p>Nothing here yet.</p>
+    </div>
+  {% endif %}
+
+{% else %}
+
+
+
+
+
+  {% if collections.nav.size > 0 %}
+
+  <div class="container">
+  <div class="row">
+    <div class="col-12 text-center mb-4">
+      <img src="https://placehold.it/250x100" class="logo--title mb-3">
+    </div>
+  </div>
+
+  <div class="row">
+
+  <div class="col-12 collections">
+      {% for collection in collections.nav %}
+        {% if collection.name != 'All Products' %}
+          <div class="text-center" id="collection_{{collection.id}}">
+            
+              <h1 class="collection_name mb-4">
+                {{ collection.name | escape }}
+              </h1>
+
+              {% if collection.name == 'Tote bags' %}
+              <div class="row mb-4">
+                <div class="img-wrapper col-md-4">
+                  <img src="https://placehold.it/600x600" class="img-fluid">
+                </div>
+
+                <div class="col-md-8">
+                  {% if collection.has_image? %}
+
+                  <img src="{{ collection.image }}" alt="{{ collection.name | escape }}" class="img-fluid"/>
+
+                  {% elsif collection.products.size > 0 and collection.products.first.photos.size > 0 %}
+                  <img src="{{ collection.products.first.photo.store_collection_cover }}" alt="{{ collection.name | escape_html }}" class="first-product-photo"/>
+                  {% else %}
+                  <img class="missing-collection-img" alt="{{ collection.name | escape }}" src="{{ collection.default_image }}" />
+                  {% endif %}
+                </div>
+              </div>
+
+
+                {% else %}
+                <div class="row mb-4">
+                <div class="img-wrapper mb-4 col-md-8">
+                  {% if collection.has_image? %}
+                  
+                  <img src="{{ collection.image }}" alt="{{ collection.name | escape }}" class="img-fluid"/>
+
+                  {% elsif collection.products.size > 0 and collection.products.first.photos.size > 0 %}
+                  <img src="{{ collection.products.first.photo.store_collection_cover }}" alt="{{ collection.name | escape_html }}" class="first-product-photo"/>
+                  {% else %}
+                  <img class="missing-collection-img" alt="{{ collection.name | escape }}" src="{{ collection.default_image }}" />
+                  {% endif %}
+
+                </div>
+
+                <div class="col-md-4">
+                   <img src="https://placehold.it/600x600" class="img-fluid">
+                </div>
+              </div>
+
+              {% endif %}
+            
+          </div>
+        
+
+          <ul class="products row">
+            {% for product in collection.products %}
+            <li class="product col-3" id="products_{{product.id}}">
+
+              <div class="flags">
+                {% if product.on_sale %}<div class="on_sale flag status">On Sale</div>{% endif %}
+                {% if product.preorder %}<div class="preorder flag status">Preorder</div>{% endif %}
+                {% if product.coming_soon %}<div class="coming_soon flag status">Coming Soon</div>{% endif %}
+                {% if product.sold_out %}<div class="sold_out flag">Sold Out</div>{% endif %}
+              </div>
+
+              <a href="{{product.url}}">
+                <img src="{{ product.photo.url_400sq }}" alt="{{ product.photo.alt | escape }}" class="product-photo" />
+                <p class="product_name">
+                  {{ product.name }}
+                </p>
+                <span class="product_price">
+                  {{ product.price | money_with_sign }}
+                </span>
+              </a>
+
+
+            </li>
+            {% endfor %}
+          </ul>
+
+        {% endif %}
+      {% endfor %}
+    </div>
+
+  </div>
+</div>
+
+    
+
+
+
+
+
+  {% elsif products.all.size > 0 %}
+    <ul class="products row">
+      {% for product in products.all %}
+        <li class="product col3" id="products_{{product.id}}">
+          <div class="flags">
+            {% if product.on_sale %}<div class="on_sale flag status">On Sale</div>{% endif %}
+            {% if product.preorder %}<div class="preorder flag status">Preorder</div>{% endif %}
+            {% if product.coming_soon %}<div class="coming_soon flag status">Coming Soon</div>{% endif %}
+            {% if product.sold_out %}<div class="sold_out flag">Sold Out</div>{% endif %}
+          </div>
+          <a href="{{product.url}}">
+            <img src="{{ product.photo.url_400sq }}" alt="{{ product.photo.alt | escape }}" class="product-photo" />
+            <p class="product_name">
+              {{ product.name }}
+            </p>
+            <span class="product_price">
+              {{ product.price | money_with_sign }}
+            </span>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+    {% if pagination.active %}
+      <div class="pagination">
+        {{ pagination.default_links }}
+      </div>
+    {% endif %}
+  {% else %}
+    <div class="no-products">
+      <p>Check back soon.</p>
+    </div>
+  {% endif %}
+{% endif %}
+

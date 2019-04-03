@@ -1,0 +1,70 @@
+<h1>Contact</h1>
+<hr/>
+<div id="contact_wrapper">
+{% if contact.sent %}
+  <div id="request_received">
+    <h2>Thanks for getting in touch!</h2>
+    <p>We will respond as soon as possible.</p>
+    <p>Sincerely,<br/>{{ store.name }}</p>
+  </div>
+{% else %}
+  <form id="contact-form" method="post" action ="/contact">
+    <ul>
+      <li>
+        <div class="label" id="first_label">
+          <label for="name">Name <span class="required">*</span></label>
+        </div>
+        <div class="field" id="first_field">
+          {{ contact | contact_input: 'name', 'text', 'Your Name'}}
+        </div>
+      </li>
+      <li>
+        <div class="label">
+          <label for="email">Email <span class="required">*</span></label>
+        </div>
+        <div class="field">
+          {{ contact | contact_input: 'email', 'text', 'jondoe@example.com'}}
+        </div>
+      </li>
+      <li>
+        <div class="label">
+          <label for="phone">Phone</label>
+        </div>
+        <div class="field">
+          {{ contact | contact_input: 'phone', 'text', '999-998-9999'}}
+        </div>
+      </li>
+      <li>
+        <div class="label">
+          <label for="order_number">Order #</label>
+        </div>
+        <div class="field">
+          {{ contact | contact_input: 'order_number', 'text', '23091230921009'}}
+        </div>
+      </li>
+      <li>
+        <div class="label">
+          <label for="message">Message <span class="required">*</span></label>
+        </div>
+        <div class="field">
+          {{ contact | contact_input: 'message', 'text', 'Please provide as much information as you can.'}}
+        </div>
+      </li>
+      <li>
+        <div class="label">
+          <label for="captcha">Captcha<span class="required">*</span></label>
+        </div>
+        <div class="field no_input">
+          {{ contact.captcha }}
+        </div>
+      </li>
+      <li>
+        <div class="label"></div>
+        <div class="submit">
+          <input type="submit" value="Send Message"  class="button" />
+        </div><!-- end .submit -->
+      </li>
+    </ul>
+  </form>
+{% endif %}
+</div>

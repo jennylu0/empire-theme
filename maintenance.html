@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{{ store.name }} | Maintenance | Online Store Powered by Storenvy</title>
+    <meta charset="utf-8" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <link rel="icon" href="https://www.storenvy.com/assets/favicon.ico" type="image/x-icon" />
+    <link href="{{ theme | theme_css_url }}" rel="stylesheet" />
+    <style>
+
+      body {
+        margin-top:33px;
+        text-align: center;
+      }
+      #content {
+        padding-top: 31px;
+      }
+      #content {
+        padding-top: 31px;
+      }
+      #logo {
+        margin-bottom: 28px;
+      }
+      #store_name {
+        margin-bottom: 40px;
+      }
+      #storenvy_logo {
+        margin-top: 22px;
+        height: 40px;
+      }
+      #content p {
+        line-height: 1.8em;
+      }
+      #content h2 {
+        font-size: 22px;
+        font-weight: bold;
+      }
+      a {
+        text-decoration: underline;
+      }
+      a:hover{
+        opacity: .9;
+      }
+      hr {
+        background-color: #222;
+        margin: 0 auto;
+        width: 60%;
+      }
+    </style>
+    {{ head_content }}
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div id="container">
+        <div id="content">
+          <div class="row">
+            <div id="maintenance">
+              {% if store.has_logo? %}
+              <div id="logo">
+
+                  <img src="{{ store.logo_url }}" alt="{{ store.name | escape }}" width="160"/>
+
+              </div>
+              {% else %}
+                <h1 id="store_name">{{ store.name }}</h1>
+              {% endif %}
+              <h2>Store under construction</h2>
+              <p>Our store will be back shortly. Check back soon!<br/>Contact us: <a href="mailto:{{ store.email }}">{{ store.email }}</a></p>
+              <hr />
+
+              <p>Why not browse some other amazing stores?</p>
+              <p>
+                <a href="https://www.storenvy.com/?ref=maint" target="_blank">Shop Now!</a>
+              </p>
+
+              <a href="https://storenvy.com/open-a-store?ref=maint"><img id="storenvy_logo" src="/assets/themes/cooper/created-with-storenvy-dark-retina.png" alt="Create your own online store with Storenvy."/></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
